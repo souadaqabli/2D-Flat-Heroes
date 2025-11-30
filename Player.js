@@ -158,6 +158,7 @@ export class Player {
     dirY /= length;
 
     this.spells.push(new Spell(this.x, this.y, dirX, dirY));
+    this.game.soundManager.playSpellSound()
 }
 
 }

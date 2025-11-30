@@ -17,24 +17,28 @@ export class Enemy {
     }
 
     update() {
-        if (this.dead) return;
+    if (this.dead) return;
 
-        this.x += this.knockbackX;
-        this.y += this.knockbackY;
+    this.x += this.knockbackX;
+    this.y += this.knockbackY;
 
-        this.knockbackX *= this.knockbackFriction;
-        this.knockbackY *= this.knockbackFriction;
+    this.knockbackX *= this.knockbackFriction;
+    this.knockbackY *= this.knockbackFriction;
 
-        this.x += this.speedX;
-        this.y += this.speedY;
+    this.x += this.speedX;
+    this.y += this.speedY;
 
-        //if (this.x < 0 || this.x > this.game.canvas.width) this.speedX *= -1;
-        //if (this.y < 0 || this.y > this.game.canvas.height) this.speedY *= -1;
-
+    // REBOND sur les bords (au lieu de bloquer)
+    if (this.x < this.size / 2 || this.x > this.game.canvas.width - this.size / 2) {
+        this.speedX *= -1;
         this.x = Math.max(this.size / 2, Math.min(this.x, this.game.canvas.width - this.size / 2));
-        this.y = Math.max(this.size / 2, Math.min(this.y, this.game.canvas.height - this.size / 2));
-
     }
+    
+    if (this.y < this.size / 2 || this.y > this.game.canvas.height - this.size / 2) {
+        this.speedY *= -1;
+        this.y = Math.max(this.size / 2, Math.min(this.y, this.game.canvas.height - this.size / 2));
+    }
+}
 
     takeHit() {
         this.life--;
