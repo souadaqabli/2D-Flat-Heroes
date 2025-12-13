@@ -9,7 +9,7 @@ export class Player {
         this.size = 20;
         this.speed = 4;
         this.color = "#4df";
-        this.lives = 10;
+        this.lives = 5;
         this.invincible = false;
         this.invincibilityTime = 800;
         this.knockbackX = 0;

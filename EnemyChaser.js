@@ -52,7 +52,10 @@ export class EnemyChaser {
 
         if (this.life <= 0) {
             this.dead = true;
-            this.game.score += 25;
+            this.game.score += 50; // Bonus final : 50 points
+        } else {
+            // Points par hit : 20 points
+            this.game.score += 20;
         }
     }
 
@@ -68,7 +71,7 @@ export class EnemyChaser {
         // Aura externe (plus grande)
         ctx.beginPath();
         ctx.arc(0, 0, this.size / 2 + auraPulse, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(80, 0, 120, 0.15)"; // Violet sombre transparent
+        ctx.fillStyle = "rgba(80, 0, 120, 0.15)"; 
         ctx.fill();
 
         // Aura intermédiaire
@@ -84,13 +87,13 @@ export class EnemyChaser {
         ctx.fill();
 
         // Bordure brillante violette
-        ctx.strokeStyle = "#6a0dad"; // Violet brillant
+        ctx.strokeStyle = "#6a0dad"; 
         ctx.lineWidth = 2;
         ctx.stroke();
 
         // === YEUX DÉMONIAQUES VIOLETS ===
-        // Yeux plus grands et menaçants
-        ctx.fillStyle = "#ff00ff"; // Magenta brillant
+        
+        ctx.fillStyle = "#ff00ff"; 
         ctx.fillRect(-8, -4, 4, 5);
         ctx.fillRect(4, -4, 4, 5);
 
@@ -102,7 +105,7 @@ export class EnemyChaser {
         ctx.shadowBlur = 0;
 
         // === DÉTAILS DÉMONIAQUES ===
-        // Cornes ou pointes
+        
         ctx.fillStyle = "#4a0080";
         ctx.beginPath();
         ctx.moveTo(-this.size / 3, -this.size / 2.5);
@@ -118,14 +121,14 @@ export class EnemyChaser {
 
         ctx.restore();
 
-        // === BARRE DE VIE (violet au lieu de vert) ===
+        // === BARRE DE VIE  ===
         ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
         ctx.fillRect(this.x - 15, this.y - 30, 30, 5);
 
-        // Couleur de vie selon HP
+        
         let lifeColor = "#a020f0"; // Violet
         if (this.life === 2) lifeColor = "#8000ff"; // Violet moyen
-        if (this.life === 1) lifeColor = "#ff00ff"; // Magenta (danger)
+        if (this.life === 1) lifeColor = "#ff00ff"; // Magenta 
 
         ctx.fillStyle = lifeColor;
         ctx.fillRect(this.x - 15, this.y - 30, (this.life / 3) * 30, 5);

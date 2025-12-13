@@ -1,9 +1,9 @@
 import { Player } from "./Player.js";
 import { Input } from "./Input.js";
 import { Enemy } from "./Enemy.js";
-import { aabbCollision } from "./Collision.js";
+import { aabbCollision } from "./collision.js";
 import { EnemyChaser } from "./EnemyChaser.js";
-import { Particle } from "./Particle.js";
+import { Particle } from "./particle.js";
 import { SoundManager } from "./SoundManager.js";
 
 export class Game {
@@ -100,7 +100,7 @@ export class Game {
         this.gameStarted = true;
         this.spawnEnemies();
         
-        // 🎵 Démarrer l'audio APRÈS le clic utilisateur
+        // Démarrer l'audio APRÈS le clic utilisateur
         await this.soundManager.start();
         
         this.soundManager.playStartSound();
@@ -149,7 +149,7 @@ export class Game {
                 this.player.lives--;
                 this.player.invincible = true;
 
-                // 🔊 Son de collision
+                // Son de collision
                 this.soundManager.playHitSound();
 
                 let dx = this.player.x - e.x;
@@ -187,6 +187,7 @@ export class Game {
             spell.update();
 
             this.enemies.forEach(enemy => {
+                // Collision AABB
                 if (!enemy.dead && aabbCollision(spell, enemy)) {
                     enemy.takeHit();
                     spell.dead = true;
@@ -206,7 +207,7 @@ export class Game {
         if (this.enemies.length === 0 && !this.levelTransition) {
             this.levelTransition = true;
             this.transitionTimer = performance.now();
-            // Son level up
+            // 🔊 Son level up
             this.soundManager.playLevelUpSound();
         }
 
@@ -280,11 +281,22 @@ export class Game {
 
         ctx.shadowBlur = 0;
 
-        // Bouton Start
+        // Bouton Start - IDENTIQUE au bouton Game Over
         const btn = this.startButton;
-        const hover = Math.sin(Date.now() / 200) * 5;
+        const hover = Math.sin(Date.now() / 200) * 3;
 
-        ctx.fillStyle = "#740001";
+        // Fond sombre avec coins arrondis
+        ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
+        ctx.beginPath();
+        ctx.roundRect(btn.x, btn.y + hover, btn.width, btn.height, 15);
+        ctx.fill();
+
+        // Ombre du bouton
+        ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetY = 5;
+
+        ctx.fillStyle = "#1a1a1a";
         ctx.strokeStyle = "#d3a625";
         ctx.lineWidth = 4;
         ctx.beginPath();
@@ -292,11 +304,15 @@ export class Game {
         ctx.fill();
         ctx.stroke();
 
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+
+        // Texte du bouton avec glow
         ctx.shadowColor = "#ffd700";
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 15;
         ctx.fillStyle = "#ffd700";
-        ctx.font = "bold 28px Arial";
-        ctx.fillText("START GAME", btn.x + btn.width / 2, btn.y + 40 + hover);
+        ctx.font = "bold 26px Georgia";
+        ctx.fillText("START GAME", btn.x + btn.width / 2, btn.y + 35 + hover);
 
         ctx.shadowBlur = 0;
 
@@ -363,36 +379,59 @@ export class Game {
 
         ctx.save();
 
-        // Overlay sombre
-        ctx.fillStyle = "rgba(0,0,0,0.85)";
+        // Overlay sombre avec fondu
+        ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        const pulse = Math.sin(Date.now() / 200) * 10;
+        const pulse = Math.sin(Date.now() / 300) * 8;
 
-        // GAME OVER
-        ctx.shadowColor = "red";
-        ctx.shadowBlur = 30;
-        ctx.font = "bold 70px Arial";
-        ctx.fillStyle = "#ff4444";
+        // === GAME OVER - Style doré élégant ===
+        ctx.shadowColor = "#ffd700";
+        ctx.shadowBlur = 40;
+        ctx.font = "bold 80px Georgia";
+        ctx.fillStyle = "#ffd700";
         ctx.textAlign = "center";
-        ctx.fillText("GAME OVER", this.canvas.width / 2, this.canvas.height / 2 - 80 - pulse);
+        ctx.fillText("GAME OVER", this.canvas.width / 2, this.canvas.height / 2 - 100 + pulse);
+
+        // Ligne décorative dorée
+        ctx.strokeStyle = "#d3a625";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(this.canvas.width / 2 - 200, this.canvas.height / 2 - 60);
+        ctx.lineTo(this.canvas.width / 2 + 200, this.canvas.height / 2 - 60);
+        ctx.stroke();
 
         ctx.shadowBlur = 0;
 
-        // === SCORE FINAL ET NIVEAU ATTEINT ===
-        ctx.fillStyle = "#ffd700";
-        ctx.font = "bold 30px Arial";
-        ctx.fillText("Final Score: " + this.score, this.canvas.width / 2, this.canvas.height / 2 - 10);
+        // === STATISTIQUES - Style propre ===
+        ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+        ctx.font = "32px Georgia";
+        ctx.fillText("Final Score", this.canvas.width / 2, this.canvas.height / 2 - 10);
 
+        // Score en grand et doré
+        ctx.shadowColor = "#ffd700";
+        ctx.shadowBlur = 20;
         ctx.fillStyle = "#ffd700";
-        ctx.font = "bold 26px Arial";
-        ctx.fillText("Level achieved: " + this.level, this.canvas.width / 2, this.canvas.height / 2 + 30);
+        ctx.font = "bold 50px Arial";
+        ctx.fillText(this.score, this.canvas.width / 2, this.canvas.height / 2 + 40);
 
-        // Bouton RESTART
+        ctx.shadowBlur = 0;
+
+        // Niveau atteint
+        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.font = "24px Georgia";
+        ctx.fillText("Level Reached: " + this.level, this.canvas.width / 2, this.canvas.height / 2 + 80);
+
+        // === BOUTON REPLAY - Style doré ===
         const btn = this.restartButton;
-        const hover = Math.sin(Date.now() / 150) * 3;
+        const hover = Math.sin(Date.now() / 200) * 3;
 
-        ctx.fillStyle = "#740001";
+        // Ombre du bouton
+        ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetY = 5;
+
+        ctx.fillStyle = "#1a1a1a";
         ctx.strokeStyle = "#d3a625";
         ctx.lineWidth = 4;
         ctx.beginPath();
@@ -400,11 +439,15 @@ export class Game {
         ctx.fill();
         ctx.stroke();
 
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+
+        // Texte du bouton avec glow
         ctx.shadowColor = "#ffd700";
         ctx.shadowBlur = 15;
         ctx.fillStyle = "#ffd700";
-        ctx.font = "bold 24px Arial";
-        ctx.fillText("REPLAY", btn.x + btn.width / 2, btn.y + 35 + hover);
+        ctx.font = "bold 26px Georgia";
+        ctx.fillText("PLAY AGAIN", btn.x + btn.width / 2, btn.y + 35 + hover);
 
         ctx.restore();
     }
@@ -412,23 +455,43 @@ export class Game {
     spawnEnemies() {
         this.enemies = [];
 
-        // Progression : plus de chasseurs au fur et à mesure
-        const baseEnemies = Math.max(1, 4 - Math.floor(this.level / 3));
-        const chasers = Math.floor(this.level / 2) + 1;
+        // === PROGRESSION HYBRIDE ===
+        // Nombre total augmente progressivement
+        let totalEnemies;
+        if (this.level <= 3) {
+            totalEnemies = 5; // Niveaux 1-3 : 5 ennemis
+        } else if (this.level <= 6) {
+            totalEnemies = 6; // Niveaux 4-6 : 6 ennemis
+        } else if (this.level <= 9) {
+            totalEnemies = 7; // Niveaux 7-9 : 7 ennemis
+        } else {
+            totalEnemies = 8; // Niveau 10+ : 8 ennemis max
+        }
 
-        // Ennemis de base (déplacement aléatoire)
+        // Proportion de chasseurs augmente avec le niveau
+        // Level 1: 1 chasseur, Level 5: 3 chasseurs, Level 10: 5 chasseurs
+        const chasers = Math.min(
+            Math.floor(this.level / 2) + 1, 
+            totalEnemies - 1 // Au moins 1 ennemi normal
+        );
+        
+        const baseEnemies = totalEnemies - chasers;
+
+        // Ennemis normaux
         for (let i = 0; i < baseEnemies; i++) {
             const x = Math.random() * (this.canvas.width - 50) + 25;
             const y = Math.random() * (this.canvas.height - 50) + 25;
             this.enemies.push(new Enemy(this, x, y));
         }
 
-        // Chasseurs (poursuivent le joueur)
+        // Chasseurs (mini-boss)
         for (let i = 0; i < chasers; i++) {
             const x = Math.random() * (this.canvas.width - 50) + 25;
             const y = Math.random() * (this.canvas.height - 50) + 25;
             this.enemies.push(new EnemyChaser(this, x, y));
         }
+
+        console.log(`Level ${this.level}: ${baseEnemies} normaux + ${chasers} chasseurs = ${totalEnemies} total`);
     }
 
     reset() {
