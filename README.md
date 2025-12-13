@@ -8,7 +8,7 @@ The game features procedural audio synthesis and vector-based AI.
 
 **Play the demo here:** [https://souadaqabli.github.io/2D-Flat-Heroes/]
 
-## 🎮 How to Play
+## How to Play
 Survive the waves of enemies, use your magic spells to defeat them, and dash to avoid damage.
 
 ### Controls
@@ -19,7 +19,7 @@ Survive the waves of enemies, use your magic spells to defeat them, and dash to 
 | **Dash** | `SPACE` | Quick burst of speed to dodge enemies |
 | **Restart** | `R` | Restart the game after Game Over |
 
-## ✨ Key Features
+## Key Features
 
 ### 🕹️ Core Mechanics
 * **Wave System:** Infinite progression with increasing difficulty (more enemies, new types).
@@ -36,7 +36,7 @@ Instead of using static MP3 files, the audio is **synthesized in real-time** usi
 * **Dynamic Sound:** Hits, shots, and dashes are generated using FM Synths and oscillators.
 * **Generative Music:** An ambient background track is composed algorithmically, ensuring the music never loops repetitively.
 
-## ⚔️ Gameplay Mechanics
+## Gameplay Mechanics
 
 The goal is to survive endless waves of enemies within the arena while achieving the highest score possible.
 
@@ -49,7 +49,7 @@ The goal is to survive endless waves of enemies within the arena while achieving
 * **🎯 Scoring:**
     * Each successful shot grants immediate points.
     * Destroying an enemy awards a significant **Score Bonus** (up to 100 points).
-    
+
 * **🚀 Progression:**
     * **Wave System:** You must defeat **every enemy** on the screen to trigger the "Level Up" event.
     * Each new level spawns more enemies and increases the proportion of Chasers.
