@@ -54,21 +54,5 @@ The goal is to survive endless waves of enemies within the arena while achieving
     * **Wave System:** You must defeat **every enemy** on the screen to trigger the "Level Up" event.
     * Each new level spawns more enemies and increases the proportion of Chasers.
 
-## 🛠️ Technical Implementation
 
-### Architecture
-The project follows a strict **Object-Oriented Programming (OOP)** structure using ES6 Modules:
 
-/JS-PROJECT
-  ├── index.html        # Entry point
-  ├── main.js           # Module loader
-  ├── style.css         # Basic styling
-  ├── Game.js          # Main loop, state management, entity pooling
-  ├── Player.js        # Physics, input handling, dash logic
-  ├── Enemy.js         # Base enemy logic (Bouncers)
-  ├── EnemyChaser.js   # Advanced AI logic 
-  ├── Spell.js         # Projectile logic
-  ├── Particle.js      # Visual effects system
-  ├── SoundManager.js  # Audio synthesis via Tone.js
-  ├── Input.js         # Event listeners wrapper
-  └── collision.js     # Custom AABB collision detection
