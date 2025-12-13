@@ -1,9 +1,9 @@
 import { Player } from "./Player.js";
 import { Input } from "./Input.js";
 import { Enemy } from "./Enemy.js";
-import { aabbCollision } from "./collision.js";
+import { aabbCollision } from "./Collision.js";
 import { EnemyChaser } from "./EnemyChaser.js";
-import { Particle } from "./particle.js";
+import { Particle } from "./Particle.js";
 import { SoundManager } from "./SoundManager.js";
 
 export class Game {
