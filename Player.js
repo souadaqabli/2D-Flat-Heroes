@@ -9,7 +9,9 @@ export class Player {
         this.size = 20;
         this.speed = 4;
         this.color = "#4df";
-        this.lives = 8;
+        //this.lives = 8;
+        this.maxLives = 8;      
+        this.lives = this.maxLives;
         this.invincible = false;
         this.invincibilityTime = 800;
         this.knockbackX = 0;

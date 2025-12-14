@@ -207,13 +207,14 @@ export class Game {
         if (this.enemies.length === 0 && !this.levelTransition) {
             this.levelTransition = true;
             this.transitionTimer = performance.now();
-            // 🔊 Son level up
+            //  Son level up
             this.soundManager.playLevelUpSound();
         }
 
         if (this.levelTransition) {
             if (performance.now() - this.transitionTimer > this.transitionDuration) {
                 this.level++;
+                this.player.lives = this.player.maxLives;
                 this.spawnEnemies();
                 this.levelTransition = false;
             }
@@ -484,7 +485,7 @@ export class Game {
             this.enemies.push(new Enemy(this, x, y));
         }
 
-        // Chasseurs (mini-boss)
+        // Chasseurs
         for (let i = 0; i < chasers; i++) {
             const x = Math.random() * (this.canvas.width - 50) + 25;
             const y = Math.random() * (this.canvas.height - 50) + 25;
@@ -497,7 +498,8 @@ export class Game {
     reset() {
         this.gameOver = false;
         this.score = 0;
-        this.player.lives = 10;
+        //this.player.lives = 10;
+        this.player.lives = this.player.maxLives;
         this.player.invincible = false;
         this.player.x = this.canvas.width / 2;
         this.player.y = this.canvas.height / 2;
