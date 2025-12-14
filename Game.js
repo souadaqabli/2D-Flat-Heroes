@@ -369,7 +369,7 @@ export class Game {
         ctx.font = "bold 60px Georgia";
         ctx.fillStyle = "#ffd700";
         ctx.textAlign = "center";
-        ctx.fillText("LEVEL " + (this.level + 1) + " ✨", this.canvas.width / 2, this.canvas.height / 2 + pulse);
+        ctx.fillText("LEVEL " + (this.level + 1) , this.canvas.width / 2, this.canvas.height / 2 + pulse);
 
         ctx.restore();
     }
