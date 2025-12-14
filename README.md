@@ -9,6 +9,10 @@ The game features procedural audio synthesis and vector-based AI.
 **Play the demo here:** [https://souadaqabli.github.io/2D-Flat-Heroes/]
 
 ## How to Play
+
+https://github.com/user-attachments/assets/12149253-d5ed-4dbd-ba3e-f5f4023c7d92
+
+
 Survive the waves of enemies, use your magic spells to defeat them, and dash to avoid damage.
 
 ### Controls
