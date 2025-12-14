@@ -40,7 +40,7 @@ Instead of using static MP3 files, the audio is **synthesized in real-time** usi
 
 The goal is to survive endless waves of enemies within the arena while achieving the highest score possible.
 
-* **❤️ Health System:** The player starts with **5 Lives**. Colliding with an enemy removes one life and triggers a temporary invincibility period (knockback effect).
+* **❤️ Health System:** The player starts with **8 Lives**. Colliding with an enemy removes one life and triggers a temporary invincibility period (knockback effect).
 
 * **👾 Enemy Types:** You will face two distinct threats:
     * **The Chasers (Purple):** Aggressive mini-bosses that actively track your position using a seeking algorithm. They are tough and require **3 hits** to be defeated.
